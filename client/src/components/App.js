@@ -6,6 +6,7 @@ function App() {
   const [wordBank, setWordBank] = useState([]);
   const [selectedWord, setSelectedWord] = useState('');
   const [selectedLetters, setSelectedLetters] = useState([]);
+  const [solvedWords, setSolvedWords] = useState([]);
 
   useEffect(() => {
     const fetchWordSearchGrid = async () => {
@@ -49,6 +50,12 @@ function App() {
 
       setSelectedWord((prevSelectedWord) => prevSelectedWord.replace(clickedLetter, ''));
     }
+
+    // Checks if selectedWord matches word in the word bank
+    if (wordBank.includes(selectedWord.toUpperCase())) {
+      // If it does, add it to the solvedWords array
+      setSolvedWords((prevSolvedWords) => [...prevSolvedWords, selectedWord.toUpperCase()]);
+    }
   };
 
   const handleBackspace = () => {
@@ -90,8 +97,8 @@ function App() {
             style={{
               cursor: 'pointer',
               marginBottom: '8px',
-              color: selectedWord.toUpperCase() === word.toUpperCase() ? 'grey' : 'black',
-              textDecoration: selectedWord.toUpperCase() === word.toUpperCase() ? 'line-through' : 'none',
+              color: solvedWords.includes(word.toUpperCase()) ? 'grey' : 'black',
+              textDecoration: solvedWords.includes(word.toUpperCase()) ? 'line-through' : 'none',
             }}
             onClick={() => handleWordClick(word)}
           >
