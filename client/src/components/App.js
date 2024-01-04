@@ -1,4 +1,3 @@
-// App.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -6,6 +5,7 @@ function App() {
   const [wordSearchGrid, setWordSearchGrid] = useState([]);
   const [wordBank, setWordBank] = useState([]);
   const [selectedWord, setSelectedWord] = useState('');
+  const [selectedLetters, setSelectedLetters] = useState([]);
 
   useEffect(() => {
     const fetchWordSearchGrid = async () => {
@@ -30,12 +30,31 @@ function App() {
     fetchWordBank();
   }, []);
 
-  const handleWordClick = (letter) => {
-    setSelectedWord((prevSelectedWord) => prevSelectedWord + letter.toUpperCase());
+  const handleWordClick = (letter, rowIndex, colIndex) => {
+    const clickedLetter = letter.toUpperCase();
+    const clickedCell = { letter: clickedLetter, rowIndex, colIndex };
+
+    const isLetterSelected = selectedLetters.some(
+      (item) => item.letter === clickedLetter && item.rowIndex === rowIndex && item.colIndex === colIndex
+    );
+
+    if (!isLetterSelected) {
+      setSelectedLetters((prevSelectedLetters) => [...prevSelectedLetters, clickedCell]);
+
+      setSelectedWord((prevSelectedWord) => prevSelectedWord + clickedLetter);
+    } else {
+      setSelectedLetters((prevSelectedLetters) =>
+        prevSelectedLetters.filter((item) => !(item.letter === clickedLetter && item.rowIndex === rowIndex && item.colIndex === colIndex))
+      );
+
+      setSelectedWord((prevSelectedWord) => prevSelectedWord.replace(clickedLetter, ''));
+    }
   };
 
   const handleBackspace = () => {
     setSelectedWord((prevSelectedWord) => prevSelectedWord.slice(0, -1));
+
+    setSelectedLetters((prevSelectedLetters) => prevSelectedLetters.slice(0, -1));
   };
 
   return (
@@ -43,7 +62,21 @@ function App() {
       <div style={{ display: 'grid', gridTemplateColumns: `repeat(${wordSearchGrid.length}, 30px)` }}>
         {wordSearchGrid.map((row, rowIndex) => (
           row.map((letter, colIndex) => (
-            <div key={`${rowIndex}-${colIndex}`} style={{ border: '1px solid black', textAlign: 'center', padding: '9px', cursor: 'pointer' }} onClick={() => handleWordClick(letter)}>
+            <div
+              key={`${rowIndex}-${colIndex}`}
+              style={{
+                border: '1px solid black',
+                textAlign: 'center',
+                padding: '9px',
+                cursor: 'pointer',
+                backgroundColor: selectedLetters.some(
+                  (item) => item.rowIndex === rowIndex && item.colIndex === colIndex
+                )
+                  ? 'yellow'
+                  : 'white',
+              }}
+              onClick={() => handleWordClick(letter, rowIndex, colIndex)}
+            >
               {letter.toUpperCase()}
             </div>
           ))
