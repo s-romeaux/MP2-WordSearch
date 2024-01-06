@@ -76,7 +76,7 @@ for (let i = 0; i < gridSize; i++) {
     }
 }
 
-return { grid, placedWords };
+ return { grid, placedWords };
 }
 
 module.exports = { generateGrid };
