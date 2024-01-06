@@ -28,7 +28,7 @@ const words = [
     'Fetch',
 ];
 
-const gridSize = 20;
+const gridSize = 22;
 
 function generateGrid(words) {
   const grid = Array.from({ length: gridSize }, () => Array(gridSize).fill(''));
