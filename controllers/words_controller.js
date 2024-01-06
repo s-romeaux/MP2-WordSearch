@@ -1,22 +1,15 @@
 
 const express = require('express')
 const words = express.Router()
-const Word = require('../models/words.js')
+const Word = require('../models/words')
 
 
 
 // SHOW
-words.get('/:id', (req, res) => {
-    Word.findById(req.params.id)
-        .populate('Word')
-        .then(foundWord => {
-          res.render('show', {
-             
-          })
-        })
-        .catch(err => {
-          res.send('404')
-        })
+words.get('/', (req, res) => {
+    Word.find().then((wordsRes) => {
+        console.log(wordsRes)
+    })
   })
   
 
