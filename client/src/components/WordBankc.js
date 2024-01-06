@@ -1,7 +1,7 @@
 import React from 'react';
 
 const WordBank = ({ wordBank, foundWords }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+  <div>
     <h2>Word Bank</h2>
     {wordBank.map((word, index) => (
       <div
