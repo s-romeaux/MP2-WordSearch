@@ -2,6 +2,7 @@
 const express = require('express')
 const words = express.Router()
 const Word = require('../models/words')
+const seedData = require('../models/word_seed')
 
 
 
@@ -12,5 +13,6 @@ words.get('/', (req, res) => {
     })
   })
   
+
 
 module.exports = words

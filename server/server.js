@@ -111,6 +111,10 @@ function generateGrid(words) {
 
 const { grid: wordSearchGrid, placedWords } = generateGrid(words);
 
+app.get('/', (req, res) => {
+  res.send("hello")
+})
+
 app.get('/wordSearchGrid', (req, res) => {
   res.json(wordSearchGrid);
 });

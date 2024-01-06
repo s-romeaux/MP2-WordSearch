@@ -44,10 +44,4 @@ module.exports = [
     {
         word: 'Fetch'
     }, 
-
-
-
-
-
-
 ]
