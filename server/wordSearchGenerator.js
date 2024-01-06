@@ -1,22 +1,22 @@
 // wordSearchGenerator.js
 
-const words = [
-    'JavaScript',
-    'React',
-    'Redux',
-    'API',
-    'MongoDB',
-    'Mongoose',
-    'Component',
-    'State',
-    'Props',
-    'Hook',
-    'Express',
-    'Node',
-    'Middleware',
-    'Schema',
-    'Fetch',
-];
+// const words = [
+//     'JavaScriptt',
+//     'React',
+//     'Redux',
+//     'API',
+//     'MongoDB',
+//     'Mongoose',
+//     'Component',
+//     'State',
+//     'Props',
+//     'Hook',
+//     'Express',
+//     'Node',
+//     'Middleware',
+//     'Schema',
+//     'Fetch',
+// ];
 
 const gridSize = 12;
 
