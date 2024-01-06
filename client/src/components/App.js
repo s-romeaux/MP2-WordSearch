@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function App() {
+  useEffect(() => {document.title = "MERN Word Search"}, [])
   const [wordSearchGrid, setWordSearchGrid] = useState([]);
   const [wordBank, setWordBank] = useState([]);
   const [selectedWord, setSelectedWord] = useState('');
   const [selectedLetters, setSelectedLetters] = useState([]);
-  const [solvedWords, setSolvedWords] = useState([]);
+  const [foundWords, setFoundWords] = useState([]);
 
   useEffect(() => {
     const fetchWordSearchGrid = async () => {
@@ -50,12 +51,6 @@ function App() {
 
       setSelectedWord((prevSelectedWord) => prevSelectedWord.replace(clickedLetter, ''));
     }
-
-    // Checks if selectedWord matches word in the word bank
-    if (wordBank.includes(selectedWord.toUpperCase())) {
-      // If it does, add it to the solvedWords array
-      setSolvedWords((prevSolvedWords) => [...prevSolvedWords, selectedWord.toUpperCase()]);
-    }
   };
 
   const handleBackspace = () => {
@@ -63,6 +58,22 @@ function App() {
 
     setSelectedLetters((prevSelectedLetters) => prevSelectedLetters.slice(0, -1));
   };
+
+  useEffect(() => {
+    const isWordInBank = wordBank.some(
+      (word) => word.toUpperCase() === selectedWord.toUpperCase()
+    );
+  
+    if (isWordInBank && !foundWords.includes(selectedWord.toUpperCase())) {
+      setFoundWords((prevFoundWords) => [...prevFoundWords, selectedWord.toUpperCase()]);
+      setSelectedWord('');
+      setSelectedLetters([]);
+    }
+  
+    console.log('Selected Word:', selectedWord.toUpperCase());
+    console.log('Is Selected Word in Bank?', isWordInBank);
+    console.log('Found Words:', foundWords);
+  }, [selectedWord, wordBank, foundWords]);
 
   return (
     <div style={{ display: 'flex', gap: '20px' }}>
@@ -79,7 +90,7 @@ function App() {
                 backgroundColor: selectedLetters.some(
                   (item) => item.rowIndex === rowIndex && item.colIndex === colIndex
                 )
-                  ? 'yellow'
+                  ? 'pink'
                   : 'white',
               }}
               onClick={() => handleWordClick(letter, rowIndex, colIndex)}
@@ -95,12 +106,10 @@ function App() {
           <div
             key={index}
             style={{
-              cursor: 'pointer',
               marginBottom: '8px',
-              color: solvedWords.includes(word.toUpperCase()) ? 'grey' : 'black',
-              textDecoration: solvedWords.includes(word.toUpperCase()) ? 'line-through' : 'none',
+              color: foundWords.includes(word.toUpperCase()) ? 'grey' : 'black',
+              textDecoration: foundWords.includes(word.toUpperCase()) ? 'line-through' : 'none',
             }}
-            onClick={() => handleWordClick(word)}
           >
             {word}
           </div>
