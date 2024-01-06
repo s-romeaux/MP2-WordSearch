@@ -17,6 +17,7 @@ function App() {
   const [selectedWord, setSelectedWord] = useState('');
   const [selectedLetters, setSelectedLetters] = useState([]);
   const [foundWords, setFoundWords] = useState([]);
+  const [currentFoundWord, setCurrentFoundWord] = useState([]);
 
   const handleWordClick = (letter, rowIndex, colIndex) => {
     const clickedLetter = letter.toUpperCase();
