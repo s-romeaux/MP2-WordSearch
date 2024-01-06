@@ -1,5 +1,3 @@
-// WordSearch.js
-
 import React from 'react';
 
 const WordSearch = ({ grid }) => {

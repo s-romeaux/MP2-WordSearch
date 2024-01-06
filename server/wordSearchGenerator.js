@@ -1,5 +1,7 @@
 // wordSearchGenerator.js
 
+const { generateGrid } = require('./gridGenerator'); // Import the generateGrid function from gridGenerator.js
+
 const words = [
     'JavaScript',
     'React',
@@ -18,70 +20,10 @@ const words = [
     'Fetch',
 ];
 
-const gridSize = 12;
+// Generate the grid using the imported generateGrid function
+const { grid: wordSearchGrid, placedWords } = generateGrid(words);
 
-function generateGrid(words) {
-    const grid = [];
-    const directions = [
-        { x: 1, y: 0 },
-        { x: 0, y: 1 },
-        { x: 1, y: 1 },
-        { x: -1, y: 0 },
-        { x: 0, y: -1 },
-        { x: -1, y: -1 },
-        { x: 1, y: -1 },
-        { x: -1, y: 1 },
-    ];
-
-    for (let i = 0; i < gridSize; i++) {
-        grid[i] = new Array(gridSize).fill('');
-    }
-
-    for (const word of words) {
-        const direction = directions[Math.floor(Math.random() * directions.length)];
-        const startX = Math.floor(Math.random() * gridSize);
-        const startY = Math.floor(Math.random() * gridSize);
-
-        let currentX = startX;
-        let currentY = startY;
-        let wordFits = true;
-
-        for (const letter of word) {
-            if (
-                currentX < 0 ||
-                currentX >= gridSize ||
-                currentY < 0 ||
-                currentY >= gridSize ||
-                grid[currentX][currentY] !== ''
-            ) {
-                wordFits = false;
-                break;
-            }
-
-            grid[currentX][currentY] = letter;
-            currentX += direction.x;
-            currentY += direction.y;
-        }
-
-        if (!wordFits) {
-            for (let i = 0; i < word.length; i++) {
-                grid[startX + i * direction.x][startY + i * direction.y] = '';
-            }
-            generateGrid([word, ...words.filter(w => w !== word)]);
-        }
-    }
-
-    for (let i = 0; i < gridSize; i++) {
-        for (let j = 0; j < gridSize; j++) {
-            if (grid[i][j] === '') {
-                const randomLetter = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-                grid[i][j] = randomLetter;
-            }
-        }
-    }
-
-    return grid;
-}
-
-const wordSearchGrid = generateGrid(words);
-console.log(wordSearchGrid);
+module.exports = {
+    wordSearchGridWithRandomLetters: wordSearchGrid,
+    placedWords,
+};
