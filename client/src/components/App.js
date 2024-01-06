@@ -8,6 +8,7 @@ function App() {
   const [selectedWord, setSelectedWord] = useState('');
   const [selectedLetters, setSelectedLetters] = useState([]);
   const [foundWords, setFoundWords] = useState([]);
+  const [currentFoundWord, setCurrentFoundWord] = useState([]);
 
   useEffect(() => {
     const fetchWordSearchGrid = async () => {
@@ -66,8 +67,12 @@ function App() {
   
     if (isWordInBank && !foundWords.includes(selectedWord.toUpperCase())) {
       setFoundWords((prevFoundWords) => [...prevFoundWords, selectedWord.toUpperCase()]);
+      console.log('Found words:', foundWords);
       setSelectedWord('');
       setSelectedLetters([]);
+      setCurrentFoundWord((prevFoundWord) => ({
+        ...prevFoundWord,
+        [selectedWord.toUpperCase()]: selectedLetters,}));
     }
   
     console.log('Selected Word:', selectedWord.toUpperCase());
@@ -87,9 +92,17 @@ function App() {
                 textAlign: 'center',
                 padding: '9px',
                 cursor: 'pointer',
-                backgroundColor: selectedLetters.some(
-                  (item) => item.rowIndex === rowIndex && item.colIndex === colIndex
+                backgroundColor: Object.values(currentFoundWord).flat().some(
+                  (item) =>
+                    item.rowIndex === rowIndex &&
+                    item.colIndex === colIndex
                 )
+                  ? 'lightblue'
+                  : selectedLetters.some(
+                      (item) =>
+                        item.rowIndex === rowIndex &&
+                        item.colIndex === colIndex
+                    )
                   ? 'pink'
                   : 'white',
               }}

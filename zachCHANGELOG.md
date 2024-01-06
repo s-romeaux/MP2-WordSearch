@@ -1,5 +1,8 @@
 # Zach's Changelog
 
+## v0.1
+Pink Highlighting Changes to Blue upon Word being Found
+
 ## v0.05
 Pink highlighting + clearing on completion
 
