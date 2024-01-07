@@ -1,5 +1,11 @@
 # Zach's Changelog
 
+## v0.12
+Added Guide image to website
+
+## v0.11
+Merged main branch, updated new MongoDB integration with Pink & Blue highlighting
+
 ## v0.1
 Pink Highlighting Changes to Blue upon Word being Found
 

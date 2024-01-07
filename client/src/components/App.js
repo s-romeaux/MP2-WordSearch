@@ -4,6 +4,7 @@ import axios from 'axios';
 import WordGrid from './WordGridc';
 import WordBank from './WordBankc';
 import SelectedWord from './SelectedWordc';
+import Guide from "./images/guide.png";
 
 function App() {
   const [wordSearchGrid, setWordSearchGrid] = useState([]);
@@ -101,6 +102,9 @@ function App() {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
         <WordBank wordBank={wordBank} foundWords={foundWords} />
         <SelectedWord selectedWord={selectedWord} handleBackspace={handleBackspace} />
+      </div>
+      <div>
+        <img src={Guide} alt="Guide to playing Word Search"/>
       </div>
     </div>
   );
