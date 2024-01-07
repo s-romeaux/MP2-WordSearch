@@ -1,5 +1,8 @@
 # Zach's Changelog
 
+## v0.13
+Changed README file
+
 ## v0.12
 Added Guide image to website
 
