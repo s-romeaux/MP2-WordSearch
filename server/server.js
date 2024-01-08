@@ -8,6 +8,8 @@ require('dotenv').config()
 
 app.use(cors());
 
+
+//MONGO CONNECTION
 async function connectToMongoDB() {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
@@ -26,13 +28,10 @@ async function connectToMongoDB() {
 connectToMongoDB();
 
 
-
-
-
-
 const gridSize = 22;
 
 async function generateGrid(wordsFromDatabase) {
+  return new Promise((resolve, reject) => {
   const grid = Array.from({ length: gridSize }, () => Array(gridSize).fill(''));
   const directions = [
     { x: 1, y: 0 },
@@ -114,10 +113,9 @@ async function generateGrid(wordsFromDatabase) {
   }
   console.log('Generated grid:', grid);
   console.log('Placed words:', placedWords);
-  return { grid, placedWords };
+  resolve({ grid, placedWords });
+});
 }
-
-
 
 
 
@@ -125,7 +123,7 @@ async function startServer() {
   try {
     const wordsFromDatabase = await getWordsFromDatabase();
     console.log('Words from database:', wordsFromDatabase);
-    const { grid: wordSearchGrid, placedWords } = generateGrid(wordsFromDatabase);
+    const { grid: wordSearchGrid, placedWords } = await generateGrid(wordsFromDatabase);
     console.log('Generated wordSearchGrid:', wordSearchGrid);
 
     app.get('/', (req, res) => {
