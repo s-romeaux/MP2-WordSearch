@@ -3,34 +3,36 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const mongoose = require('mongoose')
+const { getWordsFromDatabase } = require('../controllers/words_controller');
 require('dotenv').config()
 
 app.use(cors());
 
+async function connectToMongoDB() {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('Connected to MongoDB!!!');
+    
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error.message);
+   
+  }
+}
+
+
+connectToMongoDB();
 
 
 
-const words = [
-    'JavaScript',
-    'React',
-    'Redux',
-    'API',
-    'MongoDB',
-    'Mongoose',
-    'Component',
-    'State',
-    'Props',
-    'Hook',
-    'Express',
-    'Node',
-    'Middleware',
-    'Schema',
-    'Fetch',
-];
+
+
 
 const gridSize = 22;
 
-function generateGrid(words) {
+async function generateGrid(wordsFromDatabase) {
   const grid = Array.from({ length: gridSize }, () => Array(gridSize).fill(''));
   const directions = [
     { x: 1, y: 0 },
@@ -42,10 +44,11 @@ function generateGrid(words) {
     { x: 1, y: -1 },
     { x: -1, y: 1 },
   ];
-
+  
   const placedWords = [];
 
-  for (const word of words) {
+  for (const rawWordObject of wordsFromDatabase) {
+    const word = String(rawWordObject.word);
     let direction, startX, startY;
     let wordFits = false;
 
@@ -68,6 +71,7 @@ function generateGrid(words) {
           grid[currentX][currentY] !== ''
         ) {
           wordFits = false;
+          console.log(`Invalid position for ${letter} at (${currentX}, ${currentY})`);
           break;
         }
 
@@ -82,6 +86,7 @@ function generateGrid(words) {
 
     if (!wordFits) {
       console.error(`Could not place the word: ${word}`);
+      console.log('Grid:', grid);
       continue; // Skip to the next word
     }
 
@@ -97,6 +102,8 @@ function generateGrid(words) {
     placedWords.push(word);
   }
 
+  console.log('Final Grid:', grid)
+
   for (let i = 0; i < gridSize; i++) {
     for (let j = 0; j < gridSize; j++) {
       if (grid[i][j] === '') {
@@ -105,49 +112,72 @@ function generateGrid(words) {
       }
     }
   }
-
+  console.log('Generated grid:', grid);
+  console.log('Placed words:', placedWords);
   return { grid, placedWords };
 }
 
-const { grid: wordSearchGrid, placedWords } = generateGrid(words);
 
-app.get('/', (req, res) => {
-  res.send("hello")
-})
 
-app.get('/wordSearchGrid', (req, res) => {
-  res.json(wordSearchGrid);
-});
 
-app.get('/wordBank', (req, res) => {
-  res.json(placedWords);
-});
 
-app.listen(PORT, () => {
-    console.log(`Server is running on portt ${PORT}`);
-});
-
-const wordsController = require ("../controllers/words_controller")
-app.use("/", wordsController)
-
-//MONGO-MONGOOSE CONNECTION
-// mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true}, 
-//   )
-
-async function connectToMongoDB() {
+async function startServer() {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    const wordsFromDatabase = await getWordsFromDatabase();
+    console.log('Words from database:', wordsFromDatabase);
+    const { grid: wordSearchGrid, placedWords } = generateGrid(wordsFromDatabase);
+    console.log('Generated wordSearchGrid:', wordSearchGrid);
+
+    app.get('/', (req, res) => {
+      res.send('hello');
     });
-    console.log('Connected to MongoDB!!!');
+
+
+    app.get('/wordSearchGrid', (req, res) => {
+      console.log('Sending wordSearchGrid:', wordSearchGrid);
+      res.json(wordSearchGrid);
+    });
     
+    app.get('/wordBank', (req, res) => {
+      console.log('Sending wordBank:', placedWords);
+      res.json(placedWords);
+    });
+
+
+    app.get('/databaseWords', async (req, res) => {
+      try {
+        const wordsFromDatabase = await getWordsFromDatabase();
+        res.json(wordsFromDatabase);
+        console.log('database words pulled');
+      } catch (error) {
+        res.status(500).send('Internal Server Error');
+      }
+    });
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error.message);
-   
+    console.error('Error fetching words from the database:', error.message);
   }
 }
 
+startServer();
 
-connectToMongoDB();
-
+// const words = [
+//     'JavaScriptt',
+//     'React',
+//     'Redux',
+//     'API',
+//     'MongoDB',
+//     'Mongoose',
+//     'Component',
+//     'State',
+//     'Props',
+//     'Hook',
+//     'Express',
+//     'Node',
+//     'Middleware',
+//     'Schema',
+//     'Fetch',
+// ];
