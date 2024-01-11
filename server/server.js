@@ -70,7 +70,6 @@ async function generateGrid(wordsFromDatabase) {
           grid[currentX][currentY] !== ''
         ) {
           wordFits = false;
-          console.log(`Invalid position for ${letter} at (${currentX}, ${currentY})`);
           break;
         }
 
@@ -122,9 +121,8 @@ async function generateGrid(wordsFromDatabase) {
 async function startServer() {
   try {
     const wordsFromDatabase = await getWordsFromDatabase();
-    console.log('Words from database:', wordsFromDatabase);
     const { grid: wordSearchGrid, placedWords } = await generateGrid(wordsFromDatabase);
-    console.log('Generated wordSearchGrid:', wordSearchGrid);
+    
 
     app.get('/', (req, res) => {
       res.send('hello');
@@ -162,20 +160,3 @@ async function startServer() {
 
 startServer();
 
-// const words = [
-//     'JavaScriptt',
-//     'React',
-//     'Redux',
-//     'API',
-//     'MongoDB',
-//     'Mongoose',
-//     'Component',
-//     'State',
-//     'Props',
-//     'Hook',
-//     'Express',
-//     'Node',
-//     'Middleware',
-//     'Schema',
-//     'Fetch',
-// ];
