@@ -6,13 +6,17 @@ const seedData = require('../models/word_seed')
 
 
 
-// SHOW
-words.get('/', (req, res) => {
-    Word.find().then((wordsRes) => {
-        console.log(wordsRes)
-    })
-  })
-  
+async function getWordsFromDatabase() {
+  try {
+    const words = await Word.find();
+    console.log('Words from MongoDB:', words);
+    return words;
+  } catch (error) {
+    console.error('Error fetching words from the database:', error);
+    throw error;
+  }
+}
 
-
-module.exports = words
+module.exports = {
+  getWordsFromDatabase,
+};
