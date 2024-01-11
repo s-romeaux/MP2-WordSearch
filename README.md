@@ -15,6 +15,9 @@ Select letters on the grid to complete words related to web development, such as
 ## Created By
 
 Sal Romo ([@s-romeaux](https://github.com/s-romeaux))
+
 Johnson Yang ([@JYang6511](https://github.com/JYang6511))
+
 Jordan Lozada ([@jordanlozada](https://github.com/jordanlozada))
+
 Zach Platzer ([@ZachPlatypus](https://github.com/zachplatypus))
