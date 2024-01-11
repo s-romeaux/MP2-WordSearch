@@ -9,6 +9,12 @@ Integrating MongoDB with DBAtlas
 ### v0.98
 README Finalized
 
+### v0.97
+README Updated
+
+### v0.54
+Updated Favicon
+
 ### v0.53
 Guide Image created and added to rendering of website to show available moves
 
