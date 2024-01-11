@@ -16,13 +16,13 @@ const WordGrid = ({ wordSearchGrid, selectedLetters, handleWordClick, currentFou
                 item.rowIndex === rowIndex &&
                 item.colIndex === colIndex
             )
-              ? 'lightblue'
+              ? '#c5d1eb'
               : selectedLetters.some(
                   (item) =>
                     item.rowIndex === rowIndex &&
                     item.colIndex === colIndex
                 )
-              ? 'pink'
+              ? '#fc69b9'
               : 'white',
           }}
           onClick={() => handleWordClick(letter, rowIndex, colIndex)}
