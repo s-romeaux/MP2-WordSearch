@@ -8,6 +8,7 @@ import Guide from "./images/guide.png";
 import '../App.css'
 
 function App() {
+  // eslint-disable-next-line no-unused-vars
   const [wordSearchGrid, setWordSearchGrid] = useState([]);
   const [selectedWord, setSelectedWord] = useState('');
   const [selectedLetters, setSelectedLetters] = useState([]);
