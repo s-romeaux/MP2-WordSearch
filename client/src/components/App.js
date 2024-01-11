@@ -5,6 +5,7 @@ import WordGrid from './WordGridc';
 import WordBank from './WordBankc';
 import SelectedWord from './SelectedWordc';
 import Guide from "./images/guide.png";
+import '../App.css'
 
 function App() {
   const [wordSearchGrid, setWordSearchGrid] = useState([]);
@@ -92,22 +93,35 @@ function App() {
   }
 
   return (
-    <div style={{ display: 'flex', gap: '20px' }}>
-      <WordGrid
-        wordSearchGrid={fetchedWordSearchGrid}
-        selectedLetters={selectedLetters}
-        handleWordClick={handleWordClick}
-        currentFoundWord={currentFoundWord}
-      />
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-        <WordBank wordBank={wordBank} foundWords={foundWords} />
-        <SelectedWord selectedWord={selectedWord} handleBackspace={handleBackspace} />
+    <div>
+      <div className="header">MERN Word Search</div>
+      <div className="navigation">
+        <ul>
+          <li><a href="https://www.unlv.edu/" target="_blank" rel="noopener noreferrer">Home</a></li>
+          <li><a href="https://digitalskills.instructure.com/" target="_blank" rel="noopener noreferrer">Update Word Bank</a></li>
+          <li><a href="https://thrivedx.com/" target="_blank" rel="noopener noreferrer">About Us</a></li>
+        </ul>
       </div>
-      <div>
-        <img src={Guide} alt="Guide to playing Word Search"/>
+      <div style={{ display: 'flex', gap: '20px' }}>
+        {/* Your existing content */}
+        <WordGrid
+          wordSearchGrid={fetchedWordSearchGrid}
+          selectedLetters={selectedLetters}
+          handleWordClick={handleWordClick}
+          currentFoundWord={currentFoundWord}
+        />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <WordBank wordBank={wordBank} foundWords={foundWords} />
+          <SelectedWord selectedWord={selectedWord} handleBackspace={handleBackspace} />
+        </div>
+        <div>
+          <img src={Guide} alt="Guide to playing Word Search"/>
+        </div>
       </div>
     </div>
   );
+  
+  
 }
 
 export default App;

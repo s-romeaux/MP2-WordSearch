@@ -5,13 +5,9 @@ const WordBank = ({ wordBank, foundWords }) => (
     <h2>Word Bank</h2>
     {wordBank.map((word, index) => (
       <div
-        key={index}
-        style={{
-          marginBottom: '8px',
-          color: foundWords.includes(word.toUpperCase()) ? 'grey' : 'black',
-          textDecoration: foundWords.includes(word.toUpperCase()) ? 'line-through' : 'none',
-        }}
-      >
+      key={index}
+      className={`word ${foundWords.includes(word.toUpperCase()) ? 'word-found' : 'word-not-found'}`}
+    >
         {word}
       </div>
     ))}
