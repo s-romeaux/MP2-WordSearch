@@ -3,11 +3,29 @@
 ### v1.00 - Live Launch
 MERN Word Search now live
 
-### v0.41
+### v0.99 - Prep for Launch
+Integrating MongoDB with DBAtlas
+
+### v0.98
+README Finalized
+
+### v0.53
+Guide Image created and added to rendering of website to show available moves
+
+### v0.52
+Expanded upon CSS to create a more fleshed out look to the website
+
+### v0.51
 Added Navigator bar to top of page
 
-### v0.4 - CSS
+### v0.5 - CSS
 Began the fundamentals of CSS for making the front end pretty
+
+### v0.41
+Database moved to MongoDB, successfully pulling from Mongo for Word Grid
+
+### v0.4 - MongoDB Integration
+MongoDB integrated for word bank database.
 
 ### v0.31
 Manage state for selected letters, found words, and other game-related data
