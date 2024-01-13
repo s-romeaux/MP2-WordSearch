@@ -1,5 +1,8 @@
 # Changelog
 
+### v1.01 - Thanks Jonathon!
+Live rendering fully functional and working, thanks Jonathon!
+
 ### v1.00 - Live Launch
 MERN Word Search now live
 

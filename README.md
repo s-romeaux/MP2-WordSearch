@@ -10,7 +10,7 @@ Select letters on the grid to complete words related to web development, such as
 
 ## How do I play?
 
-[Click Here](link-to-website)
+[Click Here](https://team-wordsearch.onrender.com/)
 
 ## Created By
 
