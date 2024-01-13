@@ -5,8 +5,8 @@ import WordGrid from './WordGridc';
 import WordBank from './WordBankc';
 import SelectedWord from './SelectedWordc';
 import Guide from "./images/guide.png";
-import '../App.css'
-
+import '../App.css';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL ;
 function App() {
   // eslint-disable-next-line no-unused-vars
   const [wordSearchGrid, setWordSearchGrid] = useState([]);
@@ -19,7 +19,9 @@ function App() {
     document.title = "MERN Word Search";
     const fetchData = async () => {
       try {
-        const gridResponse = await axios.get('http://localhost:5000/wordSearchGrid');
+        const gridResponse = await axios.get(`${API_BASE_URL}/wordSearchGrid`);
+        
+        console.log("API Response",gridResponse)
         setWordSearchGrid(gridResponse.data);
       } catch (error) {
         console.error('Error fetching word search grid:', error);
@@ -30,11 +32,11 @@ function App() {
   }, []);
 
   const { data: fetchedWordSearchGrid, loading: gridLoading, error: gridError } = useDataFetching(
-    'http://localhost:5000/wordSearchGrid',
+    `${API_BASE_URL}/wordSearchGrid`,
     []
   );
   const { data: wordBank, loading: bankLoading, error: bankError } = useDataFetching(
-    'http://localhost:5000/wordBank',
+    `${API_BASE_URL}/wordBank`,
     []
   );
 

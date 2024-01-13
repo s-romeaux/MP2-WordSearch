@@ -16,13 +16,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "prebuild": "NODE_PATH=./node_modules",
+    "prebuild": "npm install",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "engines": {
-    "node": "^16.20.1"
   },
   "eslintConfig": {
     "extends": [
