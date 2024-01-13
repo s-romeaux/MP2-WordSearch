@@ -1,5 +1,8 @@
 # Changelog
 
+### v1.02
+Cleaned up CHANGELOG & README
+
 ### v1.01 - Thanks Jonathon!
 Live rendering fully functional and working, thanks Jonathon!
 
@@ -89,9 +92,3 @@ Created Server and Client directories
 
 ### v0.01
 Used create-react-app to set up a new React project
-
-
-15) 
-16) 
-17) 
-18) 
