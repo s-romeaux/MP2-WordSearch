@@ -5,8 +5,8 @@ import WordGrid from './WordGridc';
 import WordBank from './WordBankc';
 import SelectedWord from './SelectedWordc';
 import Guide from "./images/guide.png";
-import '../App.css'
-const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:5000'
+import '../App.css';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL ;
 function App() {
   // eslint-disable-next-line no-unused-vars
   const [wordSearchGrid, setWordSearchGrid] = useState([]);
@@ -20,6 +20,8 @@ function App() {
     const fetchData = async () => {
       try {
         const gridResponse = await axios.get(`${API_BASE_URL}/wordSearchGrid`);
+        
+        console.log("API Response",gridResponse)
         setWordSearchGrid(gridResponse.data);
       } catch (error) {
         console.error('Error fetching word search grid:', error);
@@ -34,7 +36,7 @@ function App() {
     []
   );
   const { data: wordBank, loading: bankLoading, error: bankError } = useDataFetching(
-    `${API_BASE_URL}/wordSearchGrid`,
+    `${API_BASE_URL}/wordBank`,
     []
   );
 
